@@ -3,7 +3,7 @@ import { createModule } from "@composabase/sdk"
 const popMedia = () => {
   const module = createModule('pop-media')
 
-  module.union('AlbumAndMovieUnion', ['music_Album', 'movies_Movie'])
+  module.union('AlbumAndMovieUnion', ['musicAlbum', 'moviesMovie'])
 
   module.query('findAlbumsAndMovies', {
     definition: {
@@ -17,7 +17,7 @@ const popMedia = () => {
 
   module.mutation('findOrCreateAlbum', {
     definition: {
-      type: module.scalar('music_Album'),
+      type: module.scalar('musicAlbum'),
       args: {
         artistName: module.string(),
         albumName: module.string(),
@@ -26,7 +26,7 @@ const popMedia = () => {
     resolver: 'find-add-album',
   })
 
-  module.type('music_Album', {
+  module.type('musicAlbum', {
     calculated: {
       definition: {
         selectionSet: `{
@@ -39,7 +39,7 @@ const popMedia = () => {
     },
   })
 
-  module.type('movies_Movie', {
+  module.type('moviesMovie', {
     imdb: {
       definition: {
         selectionSet: `{

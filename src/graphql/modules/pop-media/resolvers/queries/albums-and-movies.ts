@@ -4,8 +4,8 @@ import { gql, client } from '@composabase/client'
 
 export default async function Resolver({ operation, args }: ResolverProps) {
   const { take = 2 } = args
-  const albumFragment = extractFragment(operation.selectionSet.typed, 'music_Album')
-  const movieFragment = extractFragment(operation.selectionSet.typed, 'movies_Movie')
+  const albumFragment = extractFragment(operation.selectionSet.typed, 'musicAlbum')
+  const movieFragment = extractFragment(operation.selectionSet.typed, 'moviesMovie')
 
   const query = gql(`
     ${albumFragment}
@@ -13,12 +13,12 @@ export default async function Resolver({ operation, args }: ResolverProps) {
     query findAlbumsAndMovies ($take: Int!) {
       music_subgraph {
         findManyAlbum (take: $take, orderBy: [{rank:asc}]) {
-          ...music_AlbumFragment
+          ...musicAlbumFragment
         }
       }
       movies_subgraph {
         findManyMovie (take: $take, orderBy: [{rank:asc}]) {
-          ...movies_MovieFragment
+          ...moviesMovieFragment
         }
       }
     }
